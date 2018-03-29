@@ -1,2 +1,10 @@
-<h1><?php echo bloginfo('name'); ?></h1>
-<h1><?php echo bloginfo('description'); ?></h1>
+<?php
+
+$names = array('Brad', 'Jan', 'Mahdy', 'Meowsalot');
+
+$count = 0;
+
+while ($count < count($names)) {
+    echo "<li>Hi, my name is $names[$count]</li>";
+    $count++;
+}
