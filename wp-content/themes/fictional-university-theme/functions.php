@@ -16,10 +16,13 @@ function university_files()
 add_action('wp_enqueue_scripts', 'university_files');
 
 function theme_features(){
-    register_nav_menu('headerMenuLocation', 'Main Header Menu');
-    register_nav_menu('footerMenuOne', 'Explore Footer Menu');
-    register_nav_menu('footerMenuTwo', 'Learn Footer Menu');
+    // register_nav_menu('headerMenuLocation', 'Main Header Menu');
+    // register_nav_menu('footerMenuOne', 'Explore Footer Menu');
+    // register_nav_menu('footerMenuTwo', 'Learn Footer Menu');
     add_theme_support('title-tag');
+    add_theme_support('post-thumbnails');
+    add_image_size('professorLandscape', 400, 260, true);
+    add_image_size('professorPortrait', 480, 650, true);
 }
 
 add_action('after_setup_theme' , 'theme_features');
