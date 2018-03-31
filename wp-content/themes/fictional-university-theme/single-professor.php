@@ -21,7 +21,7 @@ while (have_posts()) {
 
     <div class="row group">
         <div class="one-third">
-            <img src="<?php the_post_thumbnail_url(); ?>" alt="">
+            <img src="<?php the_post_thumbnail_url('professorPortrait'); ?>" alt="">
         </div>
 
         <div class="two-thirds">
