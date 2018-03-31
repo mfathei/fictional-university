@@ -40,6 +40,7 @@ function pageBanner($args = array()){
 
 function university_files()
 {
+    wp_enqueue_script('google-map-scripts', '//maps.googleapis.com/maps/api/js?key=AIzaSyCHKpJEMZJs05FXsOy1NIueYvc4eyYkdtE', null, getCacheVersion(), true);
     wp_enqueue_script('university-main-scripts', get_theme_file_uri('/js/scripts-bundled.js'), null, getCacheVersion(), true);
     wp_enqueue_style('google-fonts', '//fonts.googleapis.com/css?family=Roboto+Condensed:300,300i,400,400i,700,700i|Roboto:100,300,400,400i,700,700i');
     wp_enqueue_style('font-awesome', '//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css');
