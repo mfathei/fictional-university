@@ -1,7 +1,11 @@
 <?php
 
+//  That is for install plugins add this line in wp-config.php
+// define('FS_METHOD','direct');
+
 function university_post_types(){
     register_post_type('event', array(
+        // 'supports' => array('title', 'editor', 'excerpt', 'custom-fields'), use Advanced custom fields plugin
         'supports' => array('title', 'editor', 'excerpt'),
         'rewrite' => array('slug' => 'events'),
         'has_archive' => true,
