@@ -43,6 +43,15 @@ function universitySearchResults($data)
                 'image' => get_the_post_thumbnail_url(0, 'professorLandscape')
             ));
         } else if($type == 'program'){
+
+            $relatedCampuses = get_field('related_campus');
+            foreach($relatedCampuses as $campus){
+                array_push($results['campuses'], array(
+                    'title' => get_the_title($campus),
+                    'permalink' => get_the_permalink($campus)
+                ));
+            }
+
             array_push($results['programs'], array(
                 'title' => get_the_title(),
                 'permalink' => get_the_permalink(),
@@ -82,20 +91,39 @@ function universitySearchResults($data)
             ));
         }
         $relatedProfessors = new WP_Query(array(
-            'post_type' => 'professor',
+            'post_type' => array('professor', 'event'),
             'meta_query' => $professorsMetaQuery
         ));
 
         while($relatedProfessors->have_posts()){
             $relatedProfessors->the_post();
-            array_push($results['professors'], array(
-                'title' => get_the_title(),
-                'permalink' => get_the_permalink(),
-                'image' => get_the_post_thumbnail_url(0, 'professorLandscape')
-            ));
+            $type = get_post_type();
+            if($type == 'professor'){
+                array_push($results['professors'], array(
+                    'title' => get_the_title(),
+                    'permalink' => get_the_permalink(),
+                    'image' => get_the_post_thumbnail_url(0, 'professorLandscape')
+                ));
+            } else if($type == 'event'){
+                $eDate = new DateTime(get_field('event_date'));
+                $description = null;
+                if(has_excerpt()){
+                    $description = get_the_excerpt();
+                } else {
+                    $description = wp_trim_words(get_the_content(), 18);
+                }
+                array_push($results['events'], array(
+                    'title' => get_the_title(),
+                    'permalink' => get_the_permalink(),
+                    'month' => $eDate->format('M'),
+                    'day'   => $eDate->format('d'),
+                    'description' => $description
+                ));
+            }
         }
 
         $results['professors'] = array_values(array_unique($results['professors'], SORT_REGULAR));
+        $results['events'] = array_values(array_unique($results['events'], SORT_REGULAR));
     }
 
     
