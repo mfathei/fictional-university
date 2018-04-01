@@ -10340,6 +10340,8 @@ var _HeroSlider = _interopRequireDefault(__webpack_require__(4));
 
 var _GoogleMap = _interopRequireDefault(__webpack_require__(5));
 
+var _Search = _interopRequireDefault(__webpack_require__(6));
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 // 3rd party packages from NPM
@@ -10348,6 +10350,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 var mobileMenu = new _MobileMenu.default();
 var heroSlider = new _HeroSlider.default();
 var googleMap = new _GoogleMap.default();
+var search = new _Search.default();
 
 /***/ }),
 /* 2 */
@@ -13580,6 +13583,29 @@ function () {
 }();
 
 var _default = GMap;
+exports.default = _default;
+
+/***/ }),
+/* 6 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+var Search = function Search() {
+  _classCallCheck(this, Search);
+
+  alert("Hello, I am a search.");
+};
+
+var _default = Search;
 exports.default = _default;
 
 /***/ })
