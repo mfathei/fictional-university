@@ -18,7 +18,7 @@ function universitySearchResults($data)
     ));
 
     $results = array(
-        'generalInformation' => array(),
+        'generalInfo'       => array(),
         'professors'        => array(),
         'events'            => array(),
         'programs'          => array(),
@@ -30,9 +30,11 @@ function universitySearchResults($data)
         $type = get_post_type();
 
         if($type == 'post' || $type == 'page'){
-            array_push($results['generalInformation'], array(
+            array_push($results['generalInfo'], array(
                 'title' => get_the_title(),
-                'permalink' => get_the_permalink()
+                'permalink' => get_the_permalink(),
+                'postType'  => $type,
+                'authorName'=> get_the_author()
             ));
         } else if($type == 'professor'){
             array_push($results['professors'], array(
