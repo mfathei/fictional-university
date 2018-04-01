@@ -45,7 +45,8 @@ function universitySearchResults($data)
         } else if($type == 'program'){
             array_push($results['programs'], array(
                 'title' => get_the_title(),
-                'permalink' => get_the_permalink()
+                'permalink' => get_the_permalink(),
+                'id' => get_the_ID()
             ));
         } else if($type == 'event'){
             $eDate = new DateTime(get_field('event_date'));
@@ -71,26 +72,32 @@ function universitySearchResults($data)
         
     }
 
-    $relatedProfessors = new WP_Query(array(
-        'post_type' => 'professor',
-        'meta_query' => array(
-            array(
+    if($results['programs']){
+        $professorsMetaQuery = array('relation' => 'OR');
+        foreach($results['programs'] as $item){
+            array_push($professorsMetaQuery, array(
                 'key' => 'related_programs',
                 'compare' => 'LIKE',
-                'value' => '"51"'
-            )
-        )
-    ));
-
-    while($relatedProfessors->have_posts()){
-        $relatedProfessors->the_post();
-        array_push($results['professors'], array(
-            'title' => get_the_title(),
-            'permalink' => get_the_permalink(),
-            'image' => get_the_post_thumbnail_url(0, 'professorLandscape')
+                'value' => '"' . $item['id'] . '"'
+            ));
+        }
+        $relatedProfessors = new WP_Query(array(
+            'post_type' => 'professor',
+            'meta_query' => $professorsMetaQuery
         ));
+
+        while($relatedProfessors->have_posts()){
+            $relatedProfessors->the_post();
+            array_push($results['professors'], array(
+                'title' => get_the_title(),
+                'permalink' => get_the_permalink(),
+                'image' => get_the_post_thumbnail_url(0, 'professorLandscape')
+            ));
+        }
+
+        $results['professors'] = array_values(array_unique($results['professors'], SORT_REGULAR));
     }
 
-    $results['professors'] = array_values(array_unique($results['professors'], SORT_REGULAR));
+    
     return $results;
 }
