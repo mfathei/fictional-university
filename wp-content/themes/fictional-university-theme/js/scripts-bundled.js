@@ -13618,8 +13618,11 @@ function () {
     this.searchOverlay = (0, _jquery.default)(".search-overlay");
     this.body = (0, _jquery.default)("body");
     this.searchField = (0, _jquery.default)("#search-term");
+    this.resultsDiv = (0, _jquery.default)("#search-overlay__results");
     this.overlayIsOpen = false;
-    this.typingTimeout = null;
+    this.typingTimer = null;
+    this.isSpinnerVisible = false;
+    this.previousSearch = '';
     this.events();
   }
 
@@ -13630,20 +13633,39 @@ function () {
 
       this.closeButton.on("click", this.closeOverlay.bind(this));
       (0, _jquery.default)(document).on("keydown", this.keyPressDispatcher.bind(this));
-      this.searchField.on("keydown", this.typingLogic.bind(this));
+      this.searchField.on("keyup", this.typingLogic.bind(this));
     }
   }, {
     key: "typingLogic",
     value: function typingLogic(e) {
-      clearTimeout(this.typingTimeout);
-      this.typingTimeout = setTimeout(function () {
-        console.log("Hello from search field.");
-      }, 2000);
+      if (this.searchField.val() != this.previousSearch) {
+        clearTimeout(this.typingTimer);
+
+        if (this.searchField.val()) {
+          if (!this.isSpinnerVisible) {
+            this.resultsDiv.html('<div class="spinner-loader"></div>');
+            this.isSpinnerVisible = true;
+          }
+
+          this.typingTimer = setTimeout(this.getResults.bind(this), 2000);
+        } else {
+          this.resultsDiv.html('');
+          this.isSpinnerVisible = false;
+        }
+      }
+
+      this.previousSearch = this.searchField.val();
+    }
+  }, {
+    key: "getResults",
+    value: function getResults() {
+      this.resultsDiv.html('<div>Imagine search results here</div>');
+      this.isSpinnerVisible = false;
     }
   }, {
     key: "keyPressDispatcher",
     value: function keyPressDispatcher(e) {
-      if (e.keyCode == 83 && !this.overlayIsOpen) {
+      if (e.keyCode == 83 && !this.overlayIsOpen && !(0, _jquery.default)("input, textarea").is(":focus")) {
         this.openOverlay();
       }
 
