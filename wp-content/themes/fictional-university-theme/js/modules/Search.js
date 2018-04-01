@@ -43,8 +43,9 @@ class Search {
     }
 
     getResults() {
-        this.resultsDiv.html('<div>Imagine search results here</div>');
-        this.isSpinnerVisible = false;
+        $.getJSON('http://fictional-university.loc/wp-json/wp/v2/posts?search=award', function(data){
+            alert(data[0].title.rendered);
+        });
     }
 
     keyPressDispatcher(e) {

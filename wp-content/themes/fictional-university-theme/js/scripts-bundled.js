@@ -13659,8 +13659,9 @@ function () {
   }, {
     key: "getResults",
     value: function getResults() {
-      this.resultsDiv.html('<div>Imagine search results here</div>');
-      this.isSpinnerVisible = false;
+      _jquery.default.getJSON('http://fictional-university.loc/wp-json/wp/v2/posts?search=award', function (data) {
+        alert(data[0].title.rendered);
+      });
     }
   }, {
     key: "keyPressDispatcher",
