@@ -6,7 +6,9 @@ class Search {
         this.closeButton = $(".search-overlay__close");
         this.searchOverlay = $(".search-overlay");
         this.body = $("body");
+        this.searchField = $("#search-term");
         this.overlayIsOpen = false;
+        this.typingTimeout = null;
         this.events();
     }
 
@@ -14,6 +16,14 @@ class Search {
         this.openButton.on("click", this.openOverlay.bind(this)); // .bind(this) will send 'this' object to the function
         this.closeButton.on("click", this.closeOverlay.bind(this));
         $(document).on("keydown", this.keyPressDispatcher.bind(this));
+        this.searchField.on("keydown", this.typingLogic.bind(this));
+    }
+
+    typingLogic(e) {
+        clearTimeout(this.typingTimeout);
+        this.typingTimeout = setTimeout(function () {
+            console.log("Hello from search field.");
+        }, 2000);
     }
 
     keyPressDispatcher(e) {

@@ -13617,7 +13617,9 @@ function () {
     this.closeButton = (0, _jquery.default)(".search-overlay__close");
     this.searchOverlay = (0, _jquery.default)(".search-overlay");
     this.body = (0, _jquery.default)("body");
+    this.searchField = (0, _jquery.default)("#search-term");
     this.overlayIsOpen = false;
+    this.typingTimeout = null;
     this.events();
   }
 
@@ -13628,6 +13630,15 @@ function () {
 
       this.closeButton.on("click", this.closeOverlay.bind(this));
       (0, _jquery.default)(document).on("keydown", this.keyPressDispatcher.bind(this));
+      this.searchField.on("keydown", this.typingLogic.bind(this));
+    }
+  }, {
+    key: "typingLogic",
+    value: function typingLogic(e) {
+      clearTimeout(this.typingTimeout);
+      this.typingTimeout = setTimeout(function () {
+        console.log("Hello from search field.");
+      }, 2000);
     }
   }, {
     key: "keyPressDispatcher",
