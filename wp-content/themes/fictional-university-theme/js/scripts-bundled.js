@@ -13659,8 +13659,12 @@ function () {
   }, {
     key: "getResults",
     value: function getResults() {
-      _jquery.default.getJSON('http://fictional-university.loc/wp-json/wp/v2/posts?search=award', function (data) {
-        alert(data[0].title.rendered);
+      var _this = this;
+
+      _jquery.default.getJSON('http://fictional-university.loc/wp-json/wp/v2/posts?search=' + this.searchField.val(), function (posts) {
+        _this.resultsDiv.html("\n                <h2 class=\"search-overlay__section-title\">General Information</h2>\n                <ul class=\"link-list min-list\">\n                    ".concat(posts.map(function (item) {
+          return "<li><a href=\"".concat(item.link, "\">").concat(item.title.rendered, "</a></li>");
+        }).join(''), "\n                </ul>\n            "));
       });
     }
   }, {
