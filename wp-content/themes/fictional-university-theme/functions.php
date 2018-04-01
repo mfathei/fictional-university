@@ -65,10 +65,14 @@ add_action('after_setup_theme' , 'theme_features');
 function university_adjust_queries($query)
 {
 
+    if(!is_admin() && is_post_type_archive('campus') && $query->is_main_query()){
+        $query->set('posts_per_page', -1);
+    }
+
     if(!is_admin() && is_post_type_archive('program') && $query->is_main_query()){
         $query->set('orderby', 'title');
         $query->set('order', 'ASC');
-        $query->set('posts_per_page', '-1');
+        $query->set('posts_per_page', -1);
     }
 
     if (!is_admin() && is_post_type_archive('event') && $query->is_main_query()) {
