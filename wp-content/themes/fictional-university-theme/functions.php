@@ -1,5 +1,8 @@
 <?php
 
+require get_theme_file_path('/inc/search-route.php');
+
+
 function getCacheVersion(){
     // return "1.0"; // for production
     return microtime();// for development
