@@ -136,3 +136,25 @@ function noSubsAdminBar(){
         show_admin_bar(false);
     }
 }
+
+// for login page url
+add_action('login_headerurl', 'ourHeaderUrl');
+
+function ourHeaderUrl(){
+    return esc_url(site_url('/'));
+}
+
+// for login page logo
+add_action('login_enqueue_scripts', 'ourHeaderCSS');
+
+function ourHeaderCSS(){
+    wp_enqueue_style('university_main_style', get_stylesheet_uri(), null, getCacheVersion());
+    wp_enqueue_style('google-fonts', '//fonts.googleapis.com/css?family=Roboto+Condensed:300,300i,400,400i,700,700i|Roboto:100,300,400,400i,700,700i');
+}
+
+// for login page logo alt
+add_action('login_headertitle', 'ourHeaderTitle');
+
+function ourHeaderTitle(){
+    return get_bloginfo('name');
+}
