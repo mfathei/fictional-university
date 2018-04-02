@@ -65,7 +65,7 @@ class MyNotes {
         var ourNewNote = {
             'title': $(".new-note-title").val(),
             'content': $(".new-note-body").val(),
-            'status': 'publish'
+            'status': 'publish'// private
         };
 
         $.ajax({
