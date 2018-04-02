@@ -13702,6 +13702,7 @@ function () {
         return _this2.searchField.focus();
       }, 301);
       this.overlayIsOpen = true;
+      return false; // prevent default behaviour for the <a> element
     }
   }, {
     key: "closeOverlay",
