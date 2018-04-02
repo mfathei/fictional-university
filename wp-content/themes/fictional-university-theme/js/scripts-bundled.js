@@ -13767,7 +13767,21 @@ function () {
   }, {
     key: "deleteNote",
     value: function deleteNote() {
-      alert("You clicked delete note");
+      _jquery.default.ajax({
+        beforeSend: function beforeSend(xhr) {
+          xhr.setRequestHeader('X-WP-Nonce', universityData.nonce);
+        },
+        url: universityData.root_url + '/wp-json/wp/v2/note/85',
+        type: 'DELETE',
+        success: function success(response) {
+          console.log('Congrats');
+          console.log(response);
+        },
+        error: function error(_error) {
+          console.log('Error deleting note');
+          console.log(_error);
+        }
+      });
     }
   }]);
 

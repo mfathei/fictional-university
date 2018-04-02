@@ -49,7 +49,8 @@ function university_files()
     wp_enqueue_style('font-awesome', '//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css');
     wp_enqueue_style('university_main_style', get_stylesheet_uri(), null, getCacheVersion());
     wp_localize_script('university-main-scripts', 'universityData', array(
-        'root_url' => esc_url(get_site_url())
+        'root_url' => esc_url(get_site_url()),
+        'nonce' => wp_create_nonce('wp_rest')
     ));
 }
 
