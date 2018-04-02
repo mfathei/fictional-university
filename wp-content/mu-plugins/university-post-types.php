@@ -8,6 +8,8 @@ function university_post_types()
 
     // Campus post type
     register_post_type('campus', array(
+        'capability_type' => 'campus',
+        'map_meta_cap' => true,
         // 'supports' => array('title', 'editor', 'excerpt', 'custom-fields'), use Advanced custom fields plugin
         'supports' => array('title', 'editor', 'excerpt'),
         'rewrite' => array('slug' => 'campuses'),
@@ -26,6 +28,8 @@ function university_post_types()
 
     // Event post type
     register_post_type('event', array(
+        'capability_type' => 'event',// for user roles
+        'map_meta_cap' => true,// for user roles
         // 'supports' => array('title', 'editor', 'excerpt', 'custom-fields'), use Advanced custom fields plugin
         'supports' => array('title', 'editor', 'excerpt'),
         'rewrite' => array('slug' => 'events'),
