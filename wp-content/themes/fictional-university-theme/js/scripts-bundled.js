@@ -10342,6 +10342,8 @@ var _GoogleMap = _interopRequireDefault(__webpack_require__(5));
 
 var _Search = _interopRequireDefault(__webpack_require__(6));
 
+var _MyNotes = _interopRequireDefault(__webpack_require__(7));
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 // 3rd party packages from NPM
@@ -10351,6 +10353,7 @@ var mobileMenu = new _MobileMenu.default();
 var heroSlider = new _HeroSlider.default();
 var googleMap = new _GoogleMap.default();
 var search = new _Search.default();
+var mynotes = new _MyNotes.default();
 
 /***/ }),
 /* 2 */
@@ -13722,6 +13725,56 @@ function () {
 }();
 
 var _default = Search;
+exports.default = _default;
+
+/***/ }),
+/* 7 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _jquery = _interopRequireDefault(__webpack_require__(0));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+var MyNotes =
+/*#__PURE__*/
+function () {
+  function MyNotes() {
+    _classCallCheck(this, MyNotes);
+
+    this.events();
+  }
+
+  _createClass(MyNotes, [{
+    key: "events",
+    value: function events() {
+      (0, _jquery.default)(".delete-note").on("click", this.deleteNote);
+    } // Methods
+
+  }, {
+    key: "deleteNote",
+    value: function deleteNote() {
+      alert("You clicked delete note");
+    }
+  }]);
+
+  return MyNotes;
+}();
+
+var _default = MyNotes;
 exports.default = _default;
 
 /***/ })
