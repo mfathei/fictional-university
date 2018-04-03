@@ -14,16 +14,22 @@ class Like {
         var currentLikeBox = $(e.target).closest(".like-box");
 
         if (currentLikeBox.data("exists") == "yes") {
-            this.deleteLike();
+            this.deleteLike(currentLikeBox);
         } else {
-            this.createLike();
+            this.createLike(currentLikeBox);
         }
     }
 
-    createLike() {
+    createLike(currentLikeBox) {
+
+        var data = {
+            'professorId': currentLikeBox.data("professor")
+        }
+
         $.ajax({
-            url: universityData.root_url +'/wp-json/university/v1/manageLike',
+            url: universityData.root_url + '/wp-json/university/v1/manageLike',
             type: 'POST',
+            data: data,
             success: (response) => {
                 console.log(response);
             },
@@ -35,7 +41,7 @@ class Like {
 
     deleteLike() {
         $.ajax({
-            url: universityData.root_url +'/wp-json/university/v1/manageLike',
+            url: universityData.root_url + '/wp-json/university/v1/manageLike',
             type: 'DELETE',
             success: (response) => {
                 console.log(response);

@@ -13,8 +13,15 @@ function universityLikesApi(){
         'callback'=> 'deleteLike'
     ));
 
-    function createLike(){
-        return "Thanks for create like.";
+    function createLike($data){
+        wp_insert_post(array(
+            'post_type' => 'like',
+            'post_status' => 'publish',
+            'post_title' => 'New Like',
+            'meta_input' => array(
+                'liked_professor_id' => $data['professorId']
+            )
+        ));
     }
 
     function deleteLike(){
