@@ -13951,6 +13951,9 @@ function () {
       };
 
       _jquery.default.ajax({
+        beforeSend: function beforeSend(xhr) {
+          xhr.setRequestHeader('X-WP-Nonce', universityData.nonce);
+        },
         url: universityData.root_url + '/wp-json/university/v1/manageLike',
         type: 'POST',
         data: data,
@@ -13966,6 +13969,9 @@ function () {
     key: "deleteLike",
     value: function deleteLike() {
       _jquery.default.ajax({
+        beforeSend: function beforeSend(xhr) {
+          xhr.setRequestHeader('X-WP-Nonce', universityData.nonce);
+        },
         url: universityData.root_url + '/wp-json/university/v1/manageLike',
         type: 'DELETE',
         success: function success(response) {
