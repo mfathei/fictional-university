@@ -23,6 +23,9 @@ class MyNotes {
             type: 'DELETE',
             success: (response) => {
                 thisNote.slideUp();
+                if(response.userNotesCount <= 4){
+                    $(".note-limit-message").removeClass("active");
+                }
                 console.log('Congrats');
                 console.log(response);
             },
@@ -91,6 +94,9 @@ class MyNotes {
                 console.log(response);
             },
             error: (error) => {
+                if(error.responseText == "You reached the limit for your notes."){
+                    $(".note-limit-message").addClass("active");
+                }
                 console.log('Error deleting note');
                 console.log(error);
             }

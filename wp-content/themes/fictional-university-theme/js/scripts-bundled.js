@@ -13780,6 +13780,11 @@ function () {
         type: 'DELETE',
         success: function success(response) {
           thisNote.slideUp();
+
+          if (response.userNotesCount <= 4) {
+            (0, _jquery.default)(".note-limit-message").removeClass("active");
+          }
+
           console.log('Congrats');
           console.log(response);
         },
@@ -13825,7 +13830,8 @@ function () {
       var ourNewNote = {
         'title': (0, _jquery.default)(".new-note-title").val(),
         'content': (0, _jquery.default)(".new-note-body").val(),
-        'status': 'publish'
+        'status': 'publish' // private
+
       };
 
       _jquery.default.ajax({
@@ -13842,6 +13848,10 @@ function () {
           console.log(response);
         },
         error: function error(_error3) {
+          if (_error3.responseText == "You reached the limit for your notes.") {
+            (0, _jquery.default)(".note-limit-message").addClass("active");
+          }
+
           console.log('Error deleting note');
           console.log(_error3);
         }
