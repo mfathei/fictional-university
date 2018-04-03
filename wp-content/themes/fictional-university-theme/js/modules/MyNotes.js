@@ -68,7 +68,7 @@ class MyNotes {
         var ourNewNote = {
             'title': $(".new-note-title").val(),
             'content': $(".new-note-body").val(),
-            'status': 'publish'// private
+            'status': 'publish'// or private or 'draft'
         };
 
         $.ajax({
@@ -105,7 +105,7 @@ class MyNotes {
 
     editNote(e){
         var thisNote = $(e.target).parents("li");
-        if(thisNote.data("state") == "editable"){
+        if(thisNote.attr("data-state") == "editable"){
             this.makeNoteReadonly(thisNote);
         } else {
             this.makeNoteEditable(thisNote);
@@ -116,14 +116,14 @@ class MyNotes {
         thisNote.find(".edit-note").html('<i class="fa fa-times" aria-hidden="true"></i>Cancel');
         thisNote.find(".note-title-field, .note-body-field").removeAttr("readonly", "readonly").addClass("note-active-field");
         thisNote.find(".update-note").addClass("update-note--visible");
-        thisNote.data("state", "editable");
+        thisNote.attr("data-state", "editable");
     }
 
     makeNoteReadonly(thisNote){
         thisNote.find(".edit-note").html('<i class="fa fa-pencil" aria-hidden="true"></i>Edit');
         thisNote.find(".note-title-field, .note-body-field").attr("readonly", "readonly").removeClass("note-active-field");
         thisNote.find(".update-note").removeClass("update-note--visible");
-        thisNote.data("state", "readonly");
+        thisNote.attr("data-state", "readonly");
     }
 }
 

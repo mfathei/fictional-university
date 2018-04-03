@@ -48,7 +48,7 @@ while (have_posts()) {
           ?>
 
           <div class="two-thirds">
-              <span class="like-box" data-professor="<?php the_ID(); ?>" data-exists="<?php echo $likedIt; ?>">
+              <span class="like-box" data-like="<?php echo $alreadyLiked->posts[0]->ID; ?>" data-professor="<?php the_ID(); ?>" data-exists="<?php echo $likedIt; ?>">
                 <i class="fa fa-heart-o" area-hidden="true"></i>
                 <i class="fa fa-heart" area-hidden="true"></i>
                 <span class="like-count"><?php echo $likesCount->found_posts; ?></span>

@@ -13833,7 +13833,7 @@ function () {
       var ourNewNote = {
         'title': (0, _jquery.default)(".new-note-title").val(),
         'content': (0, _jquery.default)(".new-note-body").val(),
-        'status': 'publish' // private
+        'status': 'publish' // or private or 'draft'
 
       };
 
@@ -13865,7 +13865,7 @@ function () {
     value: function editNote(e) {
       var thisNote = (0, _jquery.default)(e.target).parents("li");
 
-      if (thisNote.data("state") == "editable") {
+      if (thisNote.attr("data-state") == "editable") {
         this.makeNoteReadonly(thisNote);
       } else {
         this.makeNoteEditable(thisNote);
@@ -13877,7 +13877,7 @@ function () {
       thisNote.find(".edit-note").html('<i class="fa fa-times" aria-hidden="true"></i>Cancel');
       thisNote.find(".note-title-field, .note-body-field").removeAttr("readonly", "readonly").addClass("note-active-field");
       thisNote.find(".update-note").addClass("update-note--visible");
-      thisNote.data("state", "editable");
+      thisNote.attr("data-state", "editable");
     }
   }, {
     key: "makeNoteReadonly",
@@ -13885,7 +13885,7 @@ function () {
       thisNote.find(".edit-note").html('<i class="fa fa-pencil" aria-hidden="true"></i>Edit');
       thisNote.find(".note-title-field, .note-body-field").attr("readonly", "readonly").removeClass("note-active-field");
       thisNote.find(".update-note").removeClass("update-note--visible");
-      thisNote.data("state", "readonly");
+      thisNote.attr("data-state", "readonly");
     }
   }]);
 
@@ -13937,7 +13937,7 @@ function () {
     value: function clickLikeDispatcher(e) {
       var currentLikeBox = (0, _jquery.default)(e.target).closest(".like-box");
 
-      if (currentLikeBox.data("exists") == "yes") {
+      if (currentLikeBox.attr("data-exists") == "yes") {
         this.deleteLike(currentLikeBox);
       } else {
         this.createLike(currentLikeBox);
@@ -13947,7 +13947,7 @@ function () {
     key: "createLike",
     value: function createLike(currentLikeBox) {
       var data = {
-        'professorId': currentLikeBox.data("professor")
+        'professorId': currentLikeBox.attr("data-professor")
       };
 
       _jquery.default.ajax({
@@ -13958,6 +13958,11 @@ function () {
         type: 'POST',
         data: data,
         success: function success(response) {
+          currentLikeBox.attr("data-exists", "yes");
+          var likesCount = parseInt(currentLikeBox.find(".like-count").html());
+          likesCount++;
+          currentLikeBox.find(".like-count").html(likesCount);
+          currentLikeBox.attr("data-like", response);
           console.log(response);
         },
         error: function error(response) {
@@ -13967,14 +13972,24 @@ function () {
     }
   }, {
     key: "deleteLike",
-    value: function deleteLike() {
+    value: function deleteLike(currentLikeBox) {
+      var data = {
+        'like': currentLikeBox.attr("data-like")
+      };
+
       _jquery.default.ajax({
         beforeSend: function beforeSend(xhr) {
           xhr.setRequestHeader('X-WP-Nonce', universityData.nonce);
         },
         url: universityData.root_url + '/wp-json/university/v1/manageLike',
         type: 'DELETE',
+        data: data,
         success: function success(response) {
+          currentLikeBox.attr("data-exists", "no");
+          var likesCount = parseInt(currentLikeBox.find(".like-count").html());
+          likesCount--;
+          currentLikeBox.find(".like-count").html(likesCount);
+          currentLikeBox.attr("data-like", '');
           console.log(response);
         },
         error: function error(response) {
