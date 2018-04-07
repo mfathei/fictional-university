@@ -12,3 +12,10 @@ function amazingContentEdits($content)
     $content = $content . "<br><p>All content belongs Fictionl University.</p>";
     return $content;
 }
+
+// shortCode in about-us page like "We have [programsCount] programs."
+add_shortCode('programsCount', 'programsCountFunction');
+
+function programsCountFunction(){
+    return 3 * 2 + 1;
+}
