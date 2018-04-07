@@ -8,6 +8,12 @@ function getCacheVersion(){
     return microtime();// for development
 }
 
+add_filter('query_vars', 'registerQueryVars');
+function registerQueryVars($vars){
+    $vars[] = 'skyColor';
+    $vars[] = 'grassColor';
+    return $vars;
+}
 
 function pageBanner($args = array()){
 
